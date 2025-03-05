@@ -30,6 +30,27 @@
       "help": "This is the instruction text",
       "translatable": true
     },
+    "_attempts": {
+      "type": "number",
+      "required": true,
+      "default": 1,
+      "title": "Attempts",
+      "inputType": "Number",
+      "validators": ["required", "number"],
+      "help": "How many attempts the learner is allowed"
+    },
+    "_minSelection": {
+      "type": "number",
+      "required": true,
+      "default": 4,
+      "title": "Minimum selection",
+      "inputType": "Number",
+      "validators": [
+        "required",
+        "number"
+      ],
+      "help": "The minimum of zones the learner has to select before submitting"
+    },
     "_developerMode": {
       "type": "boolean",
       "required": false,
