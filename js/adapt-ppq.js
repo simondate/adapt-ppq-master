@@ -180,7 +180,7 @@ define([
       event.preventDefault();
 
       const pin = this.getNextUnusedPin();
-      if (!pin || this.$('.component-widget').is('.disabled')) return;
+      if (!pin || this.$('.component__widget').is('.disabled')) return;
 
       // Get the pinboard and its position
       const $pinboard = this.$('.ppq-pinboard');

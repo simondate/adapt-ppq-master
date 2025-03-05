@@ -18,7 +18,7 @@
       "type": "string",
       "required": true,
       "enum": ["full-width", "half-width", "both"],
-      "default": "half-width",
+      "default": "full-width",
       "editorOnly": true
     },
     "instruction": {
@@ -30,26 +30,38 @@
       "help": "This is the instruction text",
       "translatable": true
     },
+    "_shouldDisplayAttempts": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "validators": []
+    },
     "_attempts": {
       "type": "number",
       "required": true,
       "default": 1,
-      "title": "Attempts",
-      "inputType": "Number",
-      "validators": ["required", "number"],
-      "help": "How many attempts the learner is allowed"
+      "validators": ["number"]
     },
     "_minSelection": {
       "type": "number",
-      "required": true,
-      "default": 4,
-      "title": "Minimum selection",
-      "inputType": "Number",
-      "validators": [
-        "required",
-        "number"
-      ],
-      "help": "The minimum of zones the learner has to select before submitting"
+      "required": false,
+      "default": 1,
+      "validators": ["number"]
+    },
+    "_canShowModelAnswer": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "title": "Allow showing correct answer.",
+      "inputType": {
+        "type": "Boolean",
+        "options": [
+          true,
+          false
+        ]
+      },
+      "validators": [],
+      "help": "Select 'true' to allow student to reveal correct answer on button press."
     },
     "_developerMode": {
       "type": "boolean",
@@ -80,6 +92,39 @@
       },
       "validators": [],
       "help": "Select 'true' to show correct zones to user after feedback"
+    },
+    "_shouldDisplayAttempts": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "validators": []
+    },
+    "_attempts": {
+      "type": "number",
+      "required": true,
+      "default": 1,
+      "va lidators": ["number"]
+    },
+    "_selectable": {
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "validators": ["number"]
+    },
+    "_canShowModelAnswer": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "title": "Allow showing correct answer.",
+      "inputType": {
+        "type": "Boolean",
+        "options": [
+          true,
+          false
+        ]
+      },
+      "validators": [],
+      "help": "Select 'true' to allow student to reveal correct answer on button press."
     },
     "_canShowFeedback": {
       "type": "boolean",
@@ -303,54 +348,18 @@
           "translatable": true
         },
         "_incorrect": {
-          "type":"object",
+          "type": "object",
           "required": false,
           "title": "Incorrect Feedback",
-          "properties":{
+          "properties": {
             "final": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Incorrect Final",
               "inputType": "TextArea",
               "validators": [],
-              "help": "Incorrect feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Incorrect Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Incorrect feedback for any attempt apart from the last attempt",
-              "translatable": true
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type":"object",
-          "required":false,
-          "properties":{
-            "final": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for any attempt apart from the last attempt",
+              "help": "Incorrect answer feedback for the final attempt",
               "translatable": true
             }
           }
