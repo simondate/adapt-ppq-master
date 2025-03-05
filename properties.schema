@@ -18,7 +18,7 @@
       "type": "string",
       "required": true,
       "enum": ["full-width", "half-width", "both"],
-      "default": "half-width",
+      "default": "full-width",
       "editorOnly": true
     },
     "instruction": {
@@ -81,6 +81,39 @@
       "validators": [],
       "help": "Select 'true' to show correct zones to user after feedback"
     },
+    "_shouldDisplayAttempts": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "validators": []
+    },
+    "_attempts": {
+      "type": "number",
+      "required": true,
+      "default": 1,
+      "validators": ["number"]
+    },
+    "_selectable": {
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "validators": ["number"]
+    },
+    "_canShowModelAnswer": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "title": "Allow showing correct answer.",
+      "inputType": {
+        "type": "Boolean",
+        "options": [
+          true,
+          false
+        ]
+      },
+      "validators": [],
+      "help": "Select 'true' to allow student to reveal correct answer on button press."
+    },
     "_canShowFeedback": {
       "type": "boolean",
       "required": false,
@@ -95,6 +128,36 @@
       },
       "validators": [],
       "help": "Disable/Enable Adapt feedback notify modal for this component."
+    },
+    "pins": {
+      "type": "object",
+      "required": ["pin", "correct", "incorrect"],
+      "properties": {
+        "pin": {
+          "type": "string",
+          "default": "",
+          "title": "Default Pin",
+          "inputType": "Asset:image",
+          "help": "Select an SVG file for the default pin.",
+          "validators": ["required"]
+        },
+        "correct": {
+          "type": "string",
+          "default": "",
+          "title": "Correct Pin",
+          "inputType": "Asset:image",
+          "help": "Select an SVG file for the correct answer pin.",
+          "validators": ["required"]
+        },
+        "incorrect": {
+          "type": "string",
+          "default": "",
+          "title": "Incorrect Pin",
+          "inputType": "Asset:image",
+          "help": "Select an SVG file for the incorrect answer pin.",
+          "validators": ["required"]
+        }
+      }
     },
     "_pinboardDesktop": {
       "type": "object",
@@ -303,54 +366,18 @@
           "translatable": true
         },
         "_incorrect": {
-          "type":"object",
+          "type": "object",
           "required": false,
           "title": "Incorrect Feedback",
-          "properties":{
+          "properties": {
             "final": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Incorrect Final",
               "inputType": "TextArea",
               "validators": [],
-              "help": "Incorrect feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Incorrect Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Incorrect feedback for any attempt apart from the last attempt",
-              "translatable": true
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type":"object",
-          "required":false,
-          "properties":{
-            "final": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for any attempt apart from the last attempt",
+              "help": "Incorrect answer feedback for the final attempt",
               "translatable": true
             }
           }

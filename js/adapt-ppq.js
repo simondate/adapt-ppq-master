@@ -4,15 +4,17 @@ define([
   'core/js/views/questionView',
   './draggabilly',
   './round',
+  'core/js/notify',
   'core/js/device',
   'core/js/components'
-], function(Adapt, QuestionView, Draggabilly, round, device, components) {
+], function(Adapt, QuestionView, Draggabilly, round, notify, device, components) {
 
   const Ppq = QuestionView.extend({
     events: {
       'click .ppq-pinboard': 'onPinboardClicked'
     },
     setupFeedback: function() {},
+
     render: function() {
       QuestionView.prototype.render.apply(this, arguments);
 
@@ -38,7 +40,9 @@ define([
 
       // pre-population simplifies code
       for (let i = 0, l = this.model.get('_maxSelection'); i < l; i++) {
-        const pin = new PinView();
+        const pin = new PinView({
+          model: this.model
+        });
         // Only set position if we have valid user answer data
         if (userAnswer.length > i * 2 + 1) {
           pin.setPosition(userAnswer[i * 2] / 100, userAnswer[i * 2 + 1] / 100);
@@ -187,8 +191,8 @@ define([
       const pinboardOffset = $pinboard.offset();
 
       // Calculate position relative to pinboard
-      const x = event.pageX - pinboardOffset.left - 30;
-      const y = event.pageY - pinboardOffset.top - 5;
+      const x = event.pageX - pinboardOffset.left - 10;
+      const y = event.pageY - pinboardOffset.top;
 
       // Get board dimensions
       const boardw = $pinboard.width();
@@ -237,24 +241,24 @@ define([
       const hasAtLeastOneCorrect = _.indexOf(map, true) !== -1;
       const isFullyCorrect = _.compact(map).length === items.length;
 
+      this.model.set('_isAtLeastOneCorrectSelection', hasAtLeastOneCorrect);
+
       if (!isFullyCorrect && hasAtLeastOneCorrect) {
         this.isPartlyCorrect();
         return false;
       }
 
-      this.model.set('_isAtLeastOneCorrectSelection', _.indexOf(map, true) !== -1);
-
       return isFullyCorrect;
     },
     isPartlyCorrect: function() {
-
       const isCorrect = this.model.get('_isCorrect');
       const hasAtLeastOneCorrect = this.model.get('_isAtLeastOneCorrectSelection');
-
-      // Only return true if we have some correct answers but not all
-      if (isCorrect) return false;
-      this.model.set('_isPartlyCorrect', true); // set partly correct
-      return hasAtLeastOneCorrect;
+      if (isCorrect) return false; // Only return true if we have some correct answers but not all
+      if (hasAtLeastOneCorrect) {
+        this.model.set('_isPartlyCorrect', true);
+        return true;
+      }
+      return false;
     },
     markQuestion: function() {
       // Call parent markQuestion
@@ -286,13 +290,13 @@ define([
           if (itemIndex !== -1 && !map[itemIndex]) {
             map[itemIndex] = true;
             pin.$el
-              .addClass('ppq-correct-icon icon-shield')
-              .removeClass('ppq-incorrect-icon icon-flag')
+              .addClass('ppq-correct-icon ppq-correct')
+              .removeClass('ppq-incorrect-icon ppq-incorrect')
               .addClass('icon');
           } else {
             pin.$el
-              .addClass('ppq-incorrect-icon icon-flag')
-              .removeClass('ppq-correct-icon icon-shield')
+              .addClass('ppq-incorrect-icon ppq-incorrect')
+              .removeClass('ppq-correct-icon ppq-correct')
               .addClass('icon');
           }
         }
@@ -402,7 +406,11 @@ define([
     initialize: function() {
       this.state = new Backbone.Model();
       this.render();
-      this.$el.attr('href', '#');
+      this.$el.attr('href', '#'); // this can be adjusted to display some information
+      this.$el.on('click', function(e) {
+        e.preventDefault(); // Prevents navigation
+        return false;
+      });
     },
 
     render: function() {

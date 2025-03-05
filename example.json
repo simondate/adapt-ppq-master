@@ -1,22 +1,31 @@
 {
-    "_id": "c-04",
-    "_parentId": "b-05",
+    "_id": "c-600",
+    "_parentId": "b-600",
     "_type": "component",
     "_component": "ppq",
     "_classes": "",
     "_layout": "full",
-    "_attempts":1,
-    "_shouldDisplayAttempts": false,
-    "_questionWeight":1,
-    "_selectable":1,
+    "_attempts": 1,
+    "_shouldDisplayAttempts": true,
+    "_questionWeight": 1,
+    "_selectable": 1,
+    "_isEnabled": true,
     "_canShowModelAnswer": true,
+    "_canShowFeedback": true,
     "_canShowMarking": true,
+    "_shouldShowMarking": true,
+    "_shouldShowZones": true,
     "_developerMode": true,
     "_resetPinsOnPinboardChange": false,
     "title": "PPQ",
-    "displayTitle": "PPQ",
-    "body": "Body",
-    "instruction": "",
+    "displayTitle": "",
+    "body": "",
+    "pins": {
+        "pin": "course/en/images/pin.svg",
+        "correct": "course/en/images/correct.svg",
+        "incorrect": "course/en/images/incorrect.svg"
+    },
+    "instruction": "Place pins in the correct places.",
     "_pinboardDesktop": {
         "src": "course/en/images/hotgraphic.png",
         "alt": "alt text",
@@ -82,28 +91,28 @@
     },
     "_buttons": {
         "_submit": {
-          "buttonText": "Submit",
-          "ariaLabel": "Submit"
+        "buttonText": "Iesūtīt",
+        "ariaLabel": "Submit"
         },
         "_reset": {
-          "buttonText": "Reset",
-          "ariaLabel": "Reset the question"
+        "buttonText": "Reset",
+        "ariaLabel": "Reset the question"
         },
         "_showCorrectAnswer": {
-          "buttonText": "Show Correct Answer",
-          "ariaLabel": "Show the correct answer"
+        "buttonText": "Show Correct Answer",
+        "ariaLabel": "Show the correct answer"
         },
         "_hideCorrectAnswer": {
-          "buttonText": "Hide Correct Answer",
-          "ariaLabel": "Hide the correct answer"
+        "buttonText": "Hide Correct Answer",
+        "ariaLabel": "Hide the correct answer"
         },
         "_showFeedback": {
-          "buttonText": "Show Feedback",
-          "ariaLabel": "Show feedback"
+        "buttonText": "Show Feedback",
+        "ariaLabel": "Show feedback"
         },
         "resetPins": {
-          "buttonText": "Reset Pins",
-          "ariaLabel": "Reset pins"
+        "buttonText": "Reset Pins",
+        "ariaLabel": "Reset pins"
         }
-      }
+    }
 }
