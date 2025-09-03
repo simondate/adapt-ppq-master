@@ -336,15 +336,25 @@
       "type": "object",
       "required": false,
       "title": "Feedback",
-      "properties":{
+      "properties": {
+        "title": {
+          "type": "string",
+          "required": false,
+          "default": "",
+          "title": "Feedback Title",
+          "inputType": "Text",
+          "validators": [],
+          "help": "Leave blank to have the component's title shown instead.",
+          "translatable": true
+        },
         "correct": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Correct",
           "inputType": "TextArea",
           "validators": [],
-          "help": "Correct feedback for this question",
+          "help": "Correct answer feedback for this question",
           "translatable": true
         },
         "_incorrect": {
@@ -360,6 +370,42 @@
               "inputType": "TextArea",
               "validators": [],
               "help": "Incorrect answer feedback for the final attempt",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type": "object",
+          "required": false,
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
               "translatable": true
             }
           }
