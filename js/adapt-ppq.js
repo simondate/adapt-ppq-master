@@ -12,7 +12,6 @@ define([
     events: {
       'click .ppq-pinboard': 'onPinboardClicked'
     },
-    setupFeedback: function() {},
     render: function() {
       QuestionView.prototype.render.apply(this, arguments);
 
@@ -223,80 +222,11 @@ define([
 
       this.model.set('_userAnswer', userAnswer);
     },
-    isCorrect: function() {
-      const items = this.model.get('_items');
-      const userAnswer = this.model.get('_userAnswer');
-      const isDesktop = userAnswer[0];
-      const map = new Array(items.length);
-
-      for (let i = 1, l = userAnswer.length; i < l; i += 2) {
-        const itemIndex = this.getIndexOfItem(userAnswer[i] / 100, userAnswer[i + 1] / 100, isDesktop);
-        if (itemIndex !== -1) map[itemIndex] = true;
-      }
-
-      const hasAtLeastOneCorrect = _.indexOf(map, true) !== -1;
-      const isFullyCorrect = _.compact(map).length === items.length;
-
-      if (!isFullyCorrect && hasAtLeastOneCorrect) {
-        this.isPartlyCorrect();
-        return false;
-      }
-
-      this.model.set('_isAtLeastOneCorrectSelection', _.indexOf(map, true) !== -1);
-
-      return isFullyCorrect;
-    },
-    isPartlyCorrect: function() {
-
-      const isCorrect = this.model.get('_isCorrect');
-      const hasAtLeastOneCorrect = this.model.get('_isAtLeastOneCorrectSelection');
-
-      // Only return true if we have some correct answers but not all
-      if (isCorrect) return false;
-      this.model.set('_isPartlyCorrect', true); // set partly correct
-      return hasAtLeastOneCorrect;
-    },
-    markQuestion: function() {
-      // Call parent markQuestion
-      QuestionView.prototype.markQuestion.apply(this, arguments);
-    },
     setScore: function() {
       const questionWeight = this.model.get('_questionWeight');
       const answeredCorrectly = this.model.get('_isCorrect');
       const score = answeredCorrectly ? questionWeight : 0;
       this.model.set('_score', score);
-    },
-    showMarking: function() {
-      if (!this.model.get('_canShowMarking')) return;
-
-      const map = new Array(this.model.get('_items').length);
-
-      if (this.model.get('_shouldShowZones')) { // show zones if enabled
-        this.$('.ppq-correct-zone').removeClass('display-none');
-      }
-
-      for (let i = 0, l = this._pinViews.length; i < l; i++) {
-        const pin = this._pinViews[i];
-        const pos = pin.getPosition();
-
-        if (pos) {
-          const itemIndex = this.getIndexOfItem(pos.percentX, pos.percentY);
-
-          // if pin inside item mark as correct, but mark any others in same item as incorrect
-          if (itemIndex !== -1 && !map[itemIndex]) {
-            map[itemIndex] = true;
-            pin.$el
-              .addClass('ppq-correct-icon icon-shield')
-              .removeClass('ppq-incorrect-icon icon-flag')
-              .addClass('icon');
-          } else {
-            pin.$el
-              .addClass('ppq-incorrect-icon icon-flag')
-              .removeClass('ppq-correct-icon icon-shield')
-              .addClass('icon');
-          }
-        }
-      }
     },
     resetUserAnswer: function() {
       this.model.set({ _userAnswer: [] });
