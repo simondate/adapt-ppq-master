@@ -1,6 +1,6 @@
 {
   "name": "adapt-ppq-master",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "framework": ">=5.0.0",
   "homepage": "https://github.com/ambivalent-axiom/adapt-ppq-master",
   "displayName" : "Pin Point Question",
